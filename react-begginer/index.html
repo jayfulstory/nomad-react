@@ -35,12 +35,17 @@
     // const container = React.createElement('div', null, [Title, Button]);
 
     function App() {
-      const [minutes, setMinutes] = React.useState('');
+      const [amount, setamount] = React.useState('');
+      const [flipped, setFlipped] = React.useState(false);
       function onChange(e) {
-        setMinutes(e.target.value);
+        setamount(e.target.value);
       }
       function reset() {
-        setMinutes('');
+        setamount('');
+      }
+      function onFlip() {
+        setamount('');
+        setFlipped(current => !current);
       }
       return (
         <div>
@@ -48,22 +53,26 @@
             <h1>Super Converter</h1>
             <label htmlFor='minutes'>Minutes</label>
             <input
-              value={minutes}
+              value={flipped ? amount * 60 : amount}
               id='minutes'
               placeholder='Minutes'
               type='number'
               onChange={onChange}
+              disabled={flipped}
             />
           </div>
           <div>
             <label htmlFor='hours'>Hours</label>
             <input
-              value={minutes == '' ? '' : Number((minutes / 60).toFixed(1))}
+              value={flipped ? amount : Number((amount / 60).toFixed(1))}
               id='hours'
               placeholder='Hours'
               type='number'
+              onChange={onChange}
+              disabled={!flipped}
             />
           </div>
+          <button onClick={onFlip}>Flip</button>
           <button onClick={reset}>Reset</button>
         </div>
       );
