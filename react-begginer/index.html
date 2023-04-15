@@ -39,20 +39,32 @@
       function onChange(e) {
         setMinutes(e.target.value);
       }
+      function reset() {
+        setMinutes('');
+      }
       return (
         <div>
-          <h1>Super Converter</h1>
-          <label htmlFor='minutes'>Minutes</label>
-          <input
-            value={minutes}
-            id='minutes'
-            placeholder='Minutes'
-            type='number'
-            onChange={onChange}
-          />
-          <h3>You want to convert {minutes}</h3>
-          <label htmlFor='hours'>Hours</label>
-          <input id='hours' placeholder='Hours' type='number' />
+          <div>
+            <h1>Super Converter</h1>
+            <label htmlFor='minutes'>Minutes</label>
+            <input
+              value={minutes}
+              id='minutes'
+              placeholder='Minutes'
+              type='number'
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <label htmlFor='hours'>Hours</label>
+            <input
+              value={minutes == '' ? '' : Number((minutes / 60).toFixed(1))}
+              id='hours'
+              placeholder='Hours'
+              type='number'
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
