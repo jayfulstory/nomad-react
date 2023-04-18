@@ -1,46 +1,23 @@
-import Button from './Button.js';
-import styles from './App.module.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [keyword, setKeyword] = useState('');
+  const [showing, setShowing] = useState(false);
+  function Hello() {
+    // Cleanup
+    useEffect(() => {
+      console.log('created :)');
+      return () => console.log('bye :(');
+    }, []);
+    return <h1>Hello</h1>;
+  }
   function onClick() {
-    setCounter(prev => prev + 1);
+    setShowing(prev => !prev);
   }
-  function onChange(e) {
-    setKeyword(e.target.value);
-  }
-  useEffect(() => {
-    console.log("i run when 'counter' changes.");
-  }, [counter]);
-  useEffect(() => {
-    if (keyword !== '' && keyword.length > 4) {
-      console.log("i run when 'keyword' changes.");
-    }
-  }, [keyword]);
-
-  useEffect(() => {
-    console.log('i run when keyword & counter change');
-  }, [keyword, counter]);
-
-  useEffect(() => {
-    console.log('i run only once');
-  }, []);
   return (
     <>
-      <input
-        value={keyword}
-        onChange={onChange}
-        type='text'
-        placeholder='Search here...'
-      />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Click me</button>
-      {/* <h1 className={styles.title}>Welcome back!</h1> */}
-      {/* <Button text={'Continue'} /> */}
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? 'hide' : 'show'}</button>
     </>
   );
 }
-
 export default App;
