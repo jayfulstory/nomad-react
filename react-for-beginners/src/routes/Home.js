@@ -4,7 +4,6 @@ import Movies from '../components/Movies.js';
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState();
-  console.log(movies);
   useEffect(() => {
     fetch(
       `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
