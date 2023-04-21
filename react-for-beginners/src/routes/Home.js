@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Movies from '../components/Movies.js';
+import styles from './Home.module.css';
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -10,11 +11,23 @@ const Home = () => {
     )
       .then(res => res.json())
       .then(data => {
-        setMovies(data.data.movies.slice(1, 5));
+        setMovies(data.data.movies.slice(1, 11));
         setLoading(false);
       });
   }, []);
-  return <>{loading ? <h1>Loading...</h1> : <Movies movies={movies} />}</>;
+  return (
+    <div className={styles.container}>
+      {loading ? (
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div className={styles.movies}>
+          <Movies movies={movies} />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Home;
