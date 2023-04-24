@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
+import styles from './Detail.module.css';
+// import { useLocation } from 'react-router-dom';
 
 const Detail = () => {
   const [movie, setMovie] = useState([]);
@@ -13,20 +16,27 @@ const Detail = () => {
         setLoading(false);
       });
   }, []);
+  movie.propTypes = {
+    large_cover_image: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  };
   return (
-    <>
+    <div className={styles.container}>
       {loading ? (
-        <h1>Loading...</h1>
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
       ) : (
         <>
           <h1>{movie.title}</h1>
-          <img src={movie.large_cover_image} />
-          <p>{movie.summary}</p>
+          <img className={styles.movie__img} src={movie.large_cover_image} />
         </>
       )}
-      <Link to='/'>back</Link>
-      <h2></h2>
-    </>
+      <h2 className={styles.back}>
+        <Link to='/'>back</Link>
+      </h2>
+    </div>
   );
 };
 
